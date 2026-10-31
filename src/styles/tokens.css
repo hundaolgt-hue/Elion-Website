@@ -1,0 +1,24 @@
+/* Elyon Aerial Services brand tokens (brand board v4). Six colors, two families. */
+:root {
+  --navy-900: #0a1b33;
+  --navy-700: #113b6b;
+  --elyon-blue: #1e63d6;
+  --sky: #4fa5ff;
+  --ice: #bde2ff;
+  --white: #ffffff;
+
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Fluid display scale: 40px at 360 to 112px at 1920 */
+  --display: clamp(2.5rem, 1.344rem + 4.615vw, 7rem);
+  --h2: clamp(1.75rem, 1.2rem + 2.2vw, 3.5rem);
+  --h3: clamp(1.25rem, 1rem + 1vw, 2rem);
+
+  --radius-card: 12px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1); /* power3.out */
+  --ease-inout: cubic-bezier(0.455, 0.03, 0.515, 0.955); /* power2.inOut */
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}

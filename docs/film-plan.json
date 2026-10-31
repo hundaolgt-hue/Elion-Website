@@ -1,0 +1,16 @@
+{
+  "clips": [
+    { "id": "c01", "src": "footage/c01.mp4", "start": 0, "end": 12 },
+    { "id": "c02", "src": "footage/c02.mp4", "start": 12, "end": 22 },
+    { "id": "c03", "src": "footage/c03.mp4", "start": 26, "end": 31 },
+    { "id": "c04a", "src": "footage/c04a.mp4", "start": 31, "end": 34 },
+    { "id": "c04b", "src": "footage/c04b.mp4", "start": 34, "end": 40 },
+    { "id": "c05", "src": "footage/c05.mp4", "start": 40, "end": 54 },
+    { "id": "c06a", "src": "footage/c06a.mp4", "start": 54, "end": 57 },
+    { "id": "c06b", "src": "footage/c06b.mp4", "start": 57, "end": 62 },
+    { "id": "c07", "src": "footage/c07.mp4", "start": 62, "end": 72 },
+    { "id": "c08", "src": "footage/c08.mp4", "start": 72, "end": 84 },
+    { "id": "c09", "src": "footage/c09.mp4", "start": 84, "end": 92 },
+    { "id": "c10", "src": "footage/c10.mp4", "start": 92, "end": 100 }
+  ]
+}
