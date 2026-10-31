@@ -55,6 +55,13 @@ function DroneExporter() {
   return null
 }
 
+/** Transparent canvas in footage mode so the real footage shows through everywhere the 3D is not needed */
+function ClearColor({ footageMode }: { footageMode: boolean }) {
+  const gl = useThree((s) => s.gl)
+  useEffect(() => { gl.setClearColor('#0A1B33', footageMode ? 0 : 1) }, [gl, footageMode])
+  return null
+}
+
 function Pointer() {
   const gl = useThree((s) => s.gl)
   useEffect(() => {
@@ -70,21 +77,24 @@ export function Stage() {
   const tier = useFilm((s) => s.tier)
   const playground = useFilm((s) => s.playground)
   const cover = useFilm((s) => s.footageCover)
+  const footageMode = useFilm((s) => s.footageMode)
+  const showWorld = !footageMode
+  const showCloud = !footageMode || playground
   const ref = poseRef as React.MutableRefObject<Pose>
   return (
     <>
     <div id="stage-html" className="fixed inset-0 z-[3] pointer-events-none" />
-    <div id="stage" className="fixed inset-0 z-0" style={{ pointerEvents: playground ? 'auto' : 'none' }} aria-hidden="true">
+    <div id="stage" className="fixed inset-0 z-[1]" style={{ pointerEvents: playground ? 'auto' : 'none', opacity: footageMode && !playground ? 0 : 1, transition: 'opacity 600ms ease' }} aria-hidden="true">
       <Canvas
-        frameloop={cover ? 'demand' : 'always'}
+        frameloop={cover && !playground ? 'demand' : 'always'}
         dpr={tier === 'lite' ? [1, 1] : [1, 1.75]}
-        gl={{ antialias: tier === 'lite', powerPreference: 'high-performance', logarithmicDepthBuffer: true, alpha: false, stencil: false }}
+        gl={{ antialias: tier === 'lite', powerPreference: 'high-performance', logarithmicDepthBuffer: true, alpha: true, stencil: false }}
         camera={{ fov: 45, near: 0.2, far: 30000, position: [0, 80, 200] }}
         shadows={false}
         eventSource={document.body}
         eventPrefix="client"
         style={{ pointerEvents: 'auto' }}
-        onCreated={({ gl }) => { gl.setClearColor('#0A1B33'); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05 }}
+        onCreated={({ gl }) => { gl.setClearColor('#0A1B33', 1); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05 }}
       >
         <Pointer />
         <DroneExporter />
@@ -93,24 +103,25 @@ export function Stage() {
         <hemisphereLight args={['#BDE2FF', '#0A1B33', 0.55]} />
         <directionalLight position={[-800, 1600, 700]} intensity={0.9} color={'#BDE2FF'} />
         <Suspense fallback={null}>
-          <SkyDome poseRef={ref} />
-          <Terrain poseRef={ref} />
-          <Buildings poseRef={ref} />
-          <CbeTower poseRef={ref} />
-          <LaunchPad />
-          <LightRail />
-          <PointCloud poseRef={ref} />
-          <Laptop poseRef={ref} />
-          <Cadastre poseRef={ref} />
-          <DataStack poseRef={ref} />
-          <Movers poseRef={ref} />
+          <ClearColor footageMode={footageMode} />
+          {showWorld && <SkyDome poseRef={ref} />}
+          {showWorld && <Terrain poseRef={ref} />}
+          {showWorld && <Buildings poseRef={ref} />}
+          {showWorld && <CbeTower poseRef={ref} />}
+          {showWorld && <LaunchPad />}
+          {showWorld && <LightRail />}
+          {showCloud && <PointCloud poseRef={ref} />}
+          {showWorld && <Laptop poseRef={ref} />}
+          {showWorld && <Cadastre poseRef={ref} />}
+          {showWorld && <DataStack poseRef={ref} />}
+          {showWorld && <Movers poseRef={ref} />}
           <GroundPicker />
           <MeasurePins />
-          <Drone poseRef={ref} />
-          <RooftopTags poseRef={ref} />
+          {showWorld && <Drone poseRef={ref} />}
+          {showWorld && <RooftopTags poseRef={ref} />}
           <SensorAnchors poseRef={ref} />
           <ParcelAnchors poseRef={ref} />
-          <Effects poseRef={ref} />
+          {showWorld && <Effects poseRef={ref} />}
         </Suspense>
       </Canvas>
     </div>

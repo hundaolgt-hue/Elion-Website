@@ -23,6 +23,7 @@ import { FrameSequence } from '@/video/FrameSequence'
 import { Grain } from '@/ui/Grain'
 import { Reduced } from '@/ui/Reduced'
 import { SceneLabels } from '@/ui/SceneLabels'
+import { Story } from '@/ui/Story'
 
 const Stage = lazy(() => import('@/three/Stage').then((m) => ({ default: m.Stage })))
 
@@ -58,7 +59,7 @@ export default function App() {
             <Reduced />
           ) : (
             <div className={loaded ? '' : 'invisible'}>
-              <Launch loaded={loaded} /><Takeoff /><Scan /><Playground /><Twin /><Platform /><Bim /><Sync /><CadastreUI /><Land /><Stack /><Landing /><SceneLabels />
+              <Launch loaded={loaded} /><Takeoff /><Scan /><Playground /><Twin /><Platform /><Bim /><Sync /><CadastreUI /><Land /><Stack /><Landing /><SceneLabels /><Story />
             </div>
           )}
         </div>

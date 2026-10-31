@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Wordmark } from '@/brand/Mark'
+import { Logo } from '@/brand/Logo'
 import { Icon } from '@/icons/Icon'
 import { flyTo } from '@/lib/film'
 import { useFilm } from '@/lib/store'
@@ -11,7 +11,7 @@ export function Navbar({ onSummary }: { onSummary: () => void }) {
   const soundOn = useFilm((s) => s.soundOn)
   const [light, setLight] = useState(false)
   const [open, setOpen] = useState(false)
-  useEffect(() => useFilm.subscribe((s) => setLight(s.pageProgress > 0.855)), [])
+  useEffect(() => useFilm.subscribe((s) => setLight(false && s.pageProgress > 0.855)), [])
   const go = (id: string) => {
     setOpen(false)
     if (id === 'about' || id === 'contact') document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -22,7 +22,7 @@ export function Navbar({ onSummary }: { onSummary: () => void }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-700 ${light ? 'text-navy-900' : 'text-white'}`}>
       <div className="glass mx-auto flex items-center justify-between px-5 md:px-8 h-[72px]" style={{ background: light ? 'color-mix(in srgb, #ffffff 70%, transparent)' : undefined }}>
         <a href="#top" onClick={(e) => { e.preventDefault(); flyTo('launch') }} aria-label="Elyon Aerial Services, back to launch" className="flex items-center gap-3">
-          <Wordmark height={28} onNavy={!light} />
+          <Logo variant="wordmark" height={40} onNavy={!light} />
         </a>
         <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
           {LINKS.map(([l, id]) => (

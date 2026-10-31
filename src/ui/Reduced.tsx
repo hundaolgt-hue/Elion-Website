@@ -1,5 +1,5 @@
 import { Icon } from '@/icons/Icon'
-import { Mark } from '@/brand/Mark'
+import { Logo } from '@/brand/Logo'
 
 const KEYFRAMES = [
   { n: '00', t: 'LiDAR Drone Data. Smarter Cities. Stronger Future.', d: 'LiDAR Drone Solutions. Data That Builds Tomorrow.', icon: 'drone' },
@@ -28,7 +28,7 @@ export function Reduced() {
         </section>
       ))}
       <section className="min-h-[50vh] flex items-center px-6 md:px-16">
-        <div className="flex items-center gap-6"><Mark size={56} /><p className="text-2xl font-display font-semibold max-w-[30ch]">Uniting aerial precision, LiDAR technology and intelligent data to create a smarter world.</p></div>
+        <div className="flex items-center gap-6"><Logo variant="mark" height={72} /><p className="text-2xl font-display font-semibold max-w-[30ch]">Uniting aerial precision, LiDAR technology and intelligent data to create a smarter world.</p></div>
       </section>
     </div>
   )

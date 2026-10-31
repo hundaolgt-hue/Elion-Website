@@ -20,7 +20,13 @@
       "patternSm": "/film/c02/sm/f{i}.webp",
       "blend": "normal",
       "opacity": 1,
-      "fade": 0.8
+      "fade": 0.8,
+      "hold": 26,
+      "recess": [
+        22.6,
+        25.6,
+        0.35
+      ]
     },
     {
       "id": "c03",

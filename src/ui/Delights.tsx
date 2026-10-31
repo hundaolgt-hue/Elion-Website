@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useFilm, SCENES } from '@/lib/store'
 import { Icon } from '@/icons/Icon'
-import { Mark } from '@/brand/Mark'
+import { Logo } from '@/brand/Logo'
 import { flyTo } from '@/lib/film'
 
 /** Typing "elyon" anywhere opens a 3 s free-flight mode: arrow keys steer the drone */
@@ -38,18 +38,16 @@ export function Favicon() {
     if (!link) return
     const c = document.createElement('canvas'); c.width = c.height = 64
     const g = c.getContext('2d')!
+    const mark = new Image(); mark.src = '/brand/mark.png'
     let a = 0
     const id = setInterval(() => {
+      if (!mark.complete || !mark.naturalWidth) return
       a += 0.6
       g.clearRect(0, 0, 64, 64)
       g.fillStyle = '#0A1B33'; g.beginPath(); g.roundRect(0, 0, 64, 64, 12); g.fill()
-      const grad = g.createLinearGradient(0, 0, 64, 0); grad.addColorStop(0, '#1E63D6'); grad.addColorStop(1, '#4FA5FF')
-      g.fillStyle = grad
-      for (const r of [0.6, -0.6, 2.5, -2.5]) { g.save(); g.translate(32, 34); g.rotate(r); g.beginPath(); g.moveTo(0, -4); g.lineTo(28, -2); g.lineTo(30, 0); g.lineTo(28, 2); g.lineTo(0, 4); g.fill(); g.restore() }
-      g.fillStyle = '#FFFFFF'; g.fillRect(29, 12, 6, 22)
-      // rotor
-      g.save(); g.translate(32, 34); g.rotate(a); g.strokeStyle = '#BDE2FF'; g.lineWidth = 2; g.beginPath(); g.moveTo(-10, 0); g.lineTo(10, 0); g.stroke(); g.restore()
-      g.fillStyle = '#4FA5FF'; for (let i = 0; i < 3; i++) g.fillRect(28 + i * 4, 46, 2, 2)
+      g.drawImage(mark, 6, 8, 52, 41)
+      // a rotor frame turning above the building silhouette
+      g.save(); g.translate(32, 14); g.rotate(a); g.strokeStyle = 'rgba(189,226,255,0.9)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(-9, 0); g.lineTo(9, 0); g.stroke(); g.restore()
       link.href = c.toDataURL('image/png')
     }, 120)
     return () => clearInterval(id)
@@ -89,7 +87,7 @@ export function Summary({ open, onClose }: { open: boolean; onClose: () => void 
           {SCENES.filter((s) => s.id !== 'playground' && s.id !== 'passthrough').map((s) => <button key={s.id} type="button" className="pill !h-9 !text-xs" onClick={() => { onClose(); flyTo(s.id) }}>{s.n} · {s.label}</button>)}
         </div>
         <div className="mt-12 card p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center gap-4"><Mark size={36} /><div><div className="font-display font-semibold">Request a demo</div><div className="text-sm text-ice/80">hello@elyonaerial.com · Addis Ababa, Ethiopia</div></div></div>
+          <div className="flex items-center gap-4"><Logo variant="mark" height={44} /><div><div className="font-display font-semibold">Request a demo</div><div className="text-sm text-ice/80">hello@elyonaerial.com · Imperial BMA Plaza, Bole, Addis Ababa</div></div></div>
           <a className="pill solid" href="mailto:hello@elyonaerial.com">Email us</a>
         </div>
       </div>

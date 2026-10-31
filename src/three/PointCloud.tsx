@@ -106,7 +106,7 @@ function PointCloudMesh({ data, poseRef }: { data: PointCloudData; poseRef: Reac
     const u = mat.current.uniforms
     const s = useFilm.getState()
     const fx = poseRef.current.fx
-    u.uScan.value = s.scanReplay !== null && fx.playground ? s.scanReplay : fx.scan
+    u.uScan.value = s.scanReplay !== null && fx.playground ? s.scanReplay : s.footageMode && fx.playground ? 1 : fx.scan
     u.uTime.value = state.clock.elapsedTime
     u.uMode.value = s.colorMode === 'elevation' ? 0 : s.colorMode === 'intensity' ? 1 : s.colorMode === 'classification' ? 2 : 3
     u.uSize.value = s.pointSize
@@ -114,7 +114,7 @@ function PointCloudMesh({ data, poseRef }: { data: PointCloudData; poseRef: Reac
     const m = u.uMask.value as number[]
     for (let i = 0; i < 5; i++) m[i] = fx.playground ? (s.classMask[i] ? 1 : 0) : 1
     u.uDensity.value = fx.playground ? s.density / 400 : 1
-    u.uFade.value = fx.pointsFade
+    u.uFade.value = s.footageMode ? (fx.playground ? 1 : 0) : fx.pointsFade
     u.uTwin.value = fx.twin
     u.uPR.value = dpr
   })

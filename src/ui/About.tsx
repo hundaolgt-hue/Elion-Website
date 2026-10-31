@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/film'
 import { Icon } from '@/icons/Icon'
-import { Wordmark, Mark } from '@/brand/Mark'
+import { Logo } from '@/brand/Logo'
 import { FOUNDERS } from '@/data/founders'
 import { generateCity } from '@/world/city'
 
@@ -23,7 +23,7 @@ function ScanPortrait({ src, alt, active }: { src: string; alt: string; active: 
     for (let i = 0; i < 2600; i++) pts.push([rnd() * W, rnd() * H, rnd()])
     draw.current = (k: number) => {
       ctx.clearRect(0, 0, W, H)
-      ctx.fillStyle = '#BDE2FF'
+      ctx.fillStyle = '#113B6B'
       ctx.fillRect(0, 0, W, H)
       const sweep = k * (H + 160) - 80
       const im = img.current
@@ -45,7 +45,7 @@ function ScanPortrait({ src, alt, active }: { src: string; alt: string; active: 
           if (!head && !body && r > 0.25) continue
         }
         const d = Math.min(1, Math.max(0, (y - sweep) / 220))
-        ctx.fillStyle = r > 0.6 ? '#1E63D6' : '#4FA5FF'
+        ctx.fillStyle = r > 0.6 ? '#BDE2FF' : '#4FA5FF'
         ctx.globalAlpha = hasImg ? 0.25 + 0.75 * (1 - d) * (0.4 + 0.6 * r) : 0.35 + 0.5 * r
         ctx.fillRect(x, y, 2.4, 2.4)
       }
@@ -99,64 +99,50 @@ function FooterCloud() {
 }
 
 /**
- * Founders, in the editorial hero grammar of the reference: a numbered founder, a very large
- * display name, the role in a quiet line, a short bio, previous / next, the portrait on the right
- * over giant watermark letters, and a strip of their work along the bottom. Brand type and palette only.
+ * Founders, in the editorial hero grammar of the reference: each founder gets a full page with a
+ * numbered index, a very large display name, the role in a quiet line, a short bio, fact chips, the
+ * portrait on the right over giant watermark letters, and a strip of their work. Both founders are
+ * on the page, one after the other, in the brand's navy palette.
  */
-function Founders() {
-  const [i, setI] = useState(0)
-  const [dir, setDir] = useState(1)
-  const f = FOUNDERS[i]
+function FounderPage({ f, index }: { f: (typeof FOUNDERS)[number]; index: number }) {
   const text = useRef<HTMLDivElement>(null)
-  const go = (d: number) => { setDir(d); setI((i + d + FOUNDERS.length) % FOUNDERS.length) }
   useEffect(() => {
-    if (!text.current) return
-    const els = text.current.querySelectorAll('[data-slide]')
-    gsap.fromTo(els, { x: 40 * dir, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out', overwrite: true })
-  }, [i, dir])
+    const els = text.current!.querySelectorAll('[data-slide]')
+    const st = ScrollTrigger.create({
+      trigger: text.current, start: 'top 80%', once: true,
+      onEnter: () => gsap.fromTo(els, { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.8, stagger: 0.07, ease: 'power3.out' }),
+    })
+    gsap.set(els, { autoAlpha: 0 })
+    return () => st.kill()
+  }, [])
   return (
-    <section className="relative bg-white overflow-hidden" aria-labelledby="founder-name">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-12 pt-20 md:pt-28">
-        <div className="label mb-3">Founders</div>
-        <h2 id="about-title" className="display text-navy-900" style={{ fontSize: 'clamp(1.8rem, 1rem + 3vw, 4.2rem)' }}>Built in Addis Ababa.<br />Flown for the world.</h2>
-      </div>
-      <div className="relative mx-auto max-w-[1400px] px-6 md:px-12 grid md:grid-cols-[1.05fr_1fr] gap-10 md:gap-6 items-end min-h-[82vh] mt-6 md:mt-0">
-        {/* watermark letters */}
-        <div aria-hidden="true" className="absolute left-[18%] top-[18%] md:top-[6%] font-display font-bold text-ice/55 select-none pointer-events-none whitespace-nowrap" style={{ fontSize: 'clamp(10rem, 34vw, 34rem)', lineHeight: 0.8, letterSpacing: '-0.05em' }}>{f.first}</div>
-        <div ref={text} className="relative z-10 pb-10 md:pb-24">
-          <div data-slide className="mono text-navy-900 font-medium text-lg">{f.n}</div>
-          <h3 id="founder-name" data-slide className="display text-navy-900 mt-6" style={{ fontSize: 'clamp(3rem, 1.5rem + 7vw, 9rem)', lineHeight: 0.95 }}>{f.first}<br />{f.last}</h3>
-          <div data-slide className="mt-5 text-navy-700 text-xl md:text-2xl font-body font-normal tracking-[0.01em]">{f.role}</div>
-          <div data-slide className="mt-6 w-10 h-px bg-navy-900" />
-          <p data-slide className="mt-6 text-navy-700 text-base md:text-lg leading-relaxed max-w-[46ch]">{f.bio}</p>
+    <article className="relative overflow-hidden" aria-labelledby={`founder-${f.id}`} style={{ background: index % 2 ? '#0A1B33' : 'color-mix(in srgb, #113B6B 28%, #0A1B33)' }}>
+      <div className="relative mx-auto max-w-[1400px] px-6 md:px-12 grid md:grid-cols-[1.05fr_1fr] gap-10 md:gap-6 items-end min-h-[88vh]">
+        <div aria-hidden="true" className="absolute left-[16%] top-[14%] md:top-[4%] font-display font-bold select-none pointer-events-none whitespace-nowrap" style={{ fontSize: 'clamp(10rem, 34vw, 34rem)', lineHeight: 0.8, letterSpacing: '-0.05em', color: 'color-mix(in srgb, #4FA5FF 9%, transparent)' }}>{f.first}</div>
+        <div ref={text} className="relative z-10 pt-24 md:pt-28 pb-10 md:pb-24">
+          <div data-slide className="mono text-sky font-medium text-lg">{f.n}</div>
+          <h3 id={`founder-${f.id}`} data-slide className="display text-white mt-6" style={{ fontSize: 'clamp(3rem, 1.5rem + 7vw, 9rem)', lineHeight: 0.95 }}>{f.first}<br />{f.last}</h3>
+          <div data-slide className="mt-5 text-ice/85 text-xl md:text-2xl font-body font-normal tracking-[0.01em]">{f.role}</div>
+          <div data-slide className="mt-6 w-10 h-px bg-sky" />
+          <p data-slide className="mt-6 text-ice/80 text-base md:text-lg leading-relaxed max-w-[46ch]">{f.bio}</p>
           <div data-slide className="mt-6 flex flex-wrap gap-2">
             {f.facts.map((s) => (
-              <div key={s.label + s.value} className="flex items-center gap-2 rounded-full border border-elyon/30 px-3 py-1.5 text-xs text-navy-900 min-h-[36px]">
-                <Icon name={s.icon} size={16} className="text-elyon" /><span className="font-medium">{s.value}</span><span className="text-navy-700/70">{s.label}</span>
+              <div key={s.label + s.value} className="flex items-center gap-2 rounded-full border border-sky/35 px-3 py-1.5 text-xs text-white min-h-[36px]">
+                <Icon name={s.icon} size={16} className="text-ice" /><span className="font-medium">{s.value}</span><span className="text-ice/60">{s.label}</span>
               </div>
             ))}
-          </div>
-          <div className="mt-10 flex items-center gap-8 text-navy-900">
-            <button type="button" onClick={() => go(-1)} className="flex items-center gap-2 font-medium min-h-[44px] hover:text-elyon transition-colors" aria-label="Previous founder"><span aria-hidden="true">‹</span> previous</button>
-            <button type="button" onClick={() => go(1)} className="flex items-center gap-2 font-medium min-h-[44px] text-navy-700/70 hover:text-elyon transition-colors" aria-label="Next founder">next <span aria-hidden="true">›</span></button>
-            <span className="ml-auto label hidden md:inline">{i + 1} / {FOUNDERS.length}</span>
           </div>
         </div>
         <div className="relative z-10 self-end">
           <div className="relative aspect-[4/5] md:aspect-[5/6] max-h-[82vh] mx-auto w-full md:w-[92%] rounded-t-[12px] overflow-hidden">
-            {FOUNDERS.map((p, k) => (
-              <div key={p.id} className="absolute inset-0 transition-opacity duration-700" style={{ opacity: k === i ? 1 : 0, pointerEvents: k === i ? 'auto' : 'none' }}>
-                <ScanPortrait src={p.portrait} alt={p.alt} active={k === i} />
-              </div>
-            ))}
+            <ScanPortrait src={f.portrait} alt={f.alt} active />
           </div>
         </div>
       </div>
-      {/* bottom strip */}
-      <div className="relative z-10 bg-navy-900 text-white">
+      <div className="relative z-10 border-t border-ice/10" style={{ background: 'color-mix(in srgb, #0A1B33 70%, transparent)' }}>
         <div className="mx-auto max-w-[1400px] grid md:grid-cols-[220px_1fr]">
-          <a href="#contact" className="hidden md:flex items-center gap-3 px-12 py-8 font-display font-semibold text-xl border-r border-ice/10 hover:text-sky transition-colors">more <span aria-hidden="true">›</span></a>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-4 px-6 md:px-12 py-6 md:py-8">
+          <div className="hidden md:flex items-center gap-3 px-12 py-8 font-display font-semibold text-xl text-white border-r border-ice/10">{index === 0 ? 'Founder 01' : 'Founder 02'}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-4 px-6 md:px-12 py-6 md:py-8 text-white">
             {f.projects.map((p) => (
               <div key={p.title} className="flex items-center gap-4">
                 <span className="w-12 h-12 rounded-full border border-ice/25 flex items-center justify-center shrink-0"><Icon name={p.icon} size={22} className="text-ice" /></span>
@@ -166,21 +152,34 @@ function Founders() {
           </div>
         </div>
       </div>
+    </article>
+  )
+}
+
+function Founders() {
+  return (
+    <section className="relative text-white" aria-labelledby="about-title" style={{ background: '#0A1B33' }}>
+      <div className="h-[18vh]" style={{ background: 'linear-gradient(to bottom, rgba(10,27,51,0) 0%, #0A1B33 100%)' }} aria-hidden="true" />
+      <div className="mx-auto max-w-[1400px] px-6 md:px-12 pt-6 md:pt-10 pb-4">
+        <div className="label mb-3">Founders</div>
+        <h2 id="about-title" className="display text-white" style={{ fontSize: 'clamp(1.8rem, 1rem + 3vw, 4.2rem)' }}>Built in Addis Ababa.<br />Flown for the world.</h2>
+      </div>
+      {FOUNDERS.map((f, i) => <FounderPage key={f.id} f={f} index={i} />)}
     </section>
   )
 }
 
 export function About() {
   return (
-    <section id="about" className="light relative" aria-labelledby="about-title">
-      {/* the first screen stays transparent so the landed drone shows through the canvas */}
+    <section id="about" className="relative" aria-label="About Elyon Aerial Services">
+      {/* the first screen stays transparent so the landed drone shows through the footage */}
       <div className="relative h-[100vh] flex items-end px-6 md:px-16 pb-16 md:pb-20">
         <p className="text-navy-900 max-w-[46ch] text-lg md:text-2xl font-display font-semibold">Uniting aerial precision, LiDAR technology and intelligent data to create a smarter world.</p>
       </div>
       <Founders />
-      <div className="relative bg-white">
+      <div className="relative" style={{ background: '#0A1B33' }}>
         <div className="mx-auto max-w-[1200px] px-6 md:px-10 pt-20 md:pt-28">
-          <p className="text-navy-900 font-display font-semibold text-xl md:text-3xl max-w-[30ch]">Uniting aerial precision, LiDAR technology and intelligent data to create a smarter world.</p>
+          <p className="text-white font-display font-semibold text-xl md:text-3xl max-w-[30ch]">Uniting aerial precision, LiDAR technology and intelligent data to create a smarter world.</p>
         </div>
         <div className="h-16 md:h-24" />
         <Contact />
@@ -204,13 +203,13 @@ function Contact() {
       <div className="rounded-[36px] md:rounded-[999px] bg-navy-700 px-6 py-10 md:px-[9%] md:py-16 text-white overflow-hidden relative">
         <div className="md:flex md:items-start md:gap-12">
           <div className="md:w-[34%]">
-            <div className="label mb-3 !text-ice">Contact</div>
+            <div className="label mb-3">Contact</div>
             <h2 className="font-display font-semibold text-2xl md:text-4xl">What do you want to scan?</h2>
             <p className="mt-4 text-ice/80 text-sm leading-relaxed">City, building, corridor or land. Tell us the question your data has to answer and we will plan the flight.</p>
             <div className="mt-6 space-y-2 text-sm text-ice">
               <a className="flex items-center gap-2 hover:text-white" href="mailto:hello@elyonaerial.com"><Icon name="mail" size={16} /> hello@elyonaerial.com</a>
               <a className="flex items-center gap-2 hover:text-white" href="https://elyonaerial.com"><Icon name="globe" size={16} /> elyonaerial.com</a>
-              <span className="flex items-center gap-2"><Icon name="pin" size={16} /> Addis Ababa, Ethiopia</span>
+              <span className="flex items-start gap-2"><Icon name="pin" size={16} className="mt-0.5" /> <span>Imperial BMA Plaza, Bole<br />Addis Ababa, Ethiopia</span></span>
             </div>
           </div>
           <form className="mt-8 md:mt-0 md:flex-1 grid sm:grid-cols-2 gap-4" onSubmit={submit} aria-live="polite">
@@ -246,7 +245,7 @@ function Footer() {
       <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 py-16 md:py-20">
         <div className="md:flex md:items-start md:justify-between gap-10">
           <div>
-            <div className="flex items-center gap-4"><Mark size={34} /><Wordmark height={28} /></div>
+            <Logo variant="lockup" height={96} />
             <p className="mt-4 text-ice/70 text-sm max-w-[32ch]">LiDAR Drone Solutions. Data That Builds Tomorrow.</p>
           </div>
           <div className="mt-10 md:mt-0 grid grid-cols-3 gap-6 md:gap-10">
@@ -261,7 +260,7 @@ function Footer() {
           </nav>
           <div className="flex items-center gap-4">
             <a href="mailto:hello@elyonaerial.com" className="hover:text-white">hello@elyonaerial.com</a>
-            <span>Addis Ababa, Ethiopia</span>
+            <span>Imperial BMA Plaza, Bole, Addis Ababa</span>
             <span className="flex items-center gap-3" aria-label="Social">
               <a href="https://www.linkedin.com" aria-label="LinkedIn" className="hover:text-white"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM2.5 9h3v12h-3zM9 9h2.9v1.7h.1c.4-.8 1.4-1.7 3-1.7 3.2 0 3.8 2.1 3.8 4.8V21h-3v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z" /></svg></a>
               <a href="https://x.com" aria-label="X" className="hover:text-white"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h3l-7.5 8.6L22 22h-6.8l-5.3-6.9L3.8 22H1l8-9.2L1.5 2h7l4.8 6.3zM16.9 20h1.9L7.2 4H5.2z" /></svg></a>
