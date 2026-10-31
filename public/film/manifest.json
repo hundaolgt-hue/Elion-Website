@@ -43,6 +43,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c04b",
+      "start": 34,
+      "end": 40,
+      "frames": 64,
+      "pattern": "/film/c04b/f{i}.webp",
+      "patternSm": "/film/c04b/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }
