@@ -36,7 +36,7 @@ export function Sync() {
   }, [])
   return (
     <div ref={root} className="fixed inset-0 z-20 pointer-events-none opacity-0" aria-hidden="true">
-      <div className="absolute left-5 md:left-16 top-24 md:top-28 max-w-[22ch]">
+      <div className="absolute left-5 md:left-16 top-24 md:top-28 max-w-[22ch] hidden md:block">
         <h2 className="display" style={{ fontSize: 'clamp(1.8rem, 1rem + 3vw, 4.2rem)' }}>Every sensor.<br />Both worlds.<br />One truth.</h2>
         <div className="mt-4 flex gap-4 text-xs mono text-ice/80"><span>PHYSICAL</span><span className="text-sky">⟷ 120 ms</span><span>DIGITAL</span></div>
       </div>

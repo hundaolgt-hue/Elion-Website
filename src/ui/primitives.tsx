@@ -9,7 +9,7 @@ export function SceneLabel({ n, text, a, b, className = '' }: { n: string; text:
     tl.fromTo(ref.current, { autoAlpha: 0, x: -16 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power3.out' }, a)
     tl.to(ref.current, { autoAlpha: 0, y: 14, duration: 0.5, ease: 'power2.in' }, b - 0.5)
   })
-  return <div ref={ref} className={`label fixed left-5 md:left-8 bottom-6 md:bottom-8 z-30 opacity-0 ${className}`} aria-hidden="true">{n} / {text}</div>
+  return <div ref={ref} className={`label fixed left-5 md:left-8 bottom-6 md:bottom-8 z-30 opacity-0 pointer-events-none hidden md:block ${className}`} aria-hidden="true">{n} / {text}</div>
 }
 
 /** Fades a block in at a and out at b with the film; children keep their own motion */

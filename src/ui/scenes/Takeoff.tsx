@@ -27,14 +27,14 @@ export function Takeoff() {
   }), [])
   return (
     <div ref={root} className="fixed inset-0 z-20 pointer-events-none opacity-0" aria-hidden="true">
-      <div className="hud-corner absolute left-5 md:left-8 top-24 flex items-center gap-3">
+      <div className="hud-corner absolute left-5 md:left-8 top-24 hidden md:flex items-center gap-3">
         <Icon name="altitude" size={22} className="text-ice" />
         <div>
           <div className="label" style={{ fontSize: 10.5 }}>Altitude</div>
           <div className="text-white text-xl md:text-2xl"><Counter from={2355} to={2475} start={4.5} end={11} unit="m AMSL" prefix="ALT " /></div>
         </div>
       </div>
-      <div className="hud-corner absolute right-10 md:right-14 top-24 text-right">
+      <div className="hud-corner absolute right-10 md:right-14 top-24 text-right hidden md:block">
         <div className="flex items-center justify-end gap-2"><Icon name="satellite" size={18} className="text-ice" /><span className="label" style={{ fontSize: 10.5 }}>GNSS</span></div>
         <div className="mono text-white"><span ref={rtk} className="text-sky">RTK FLOAT</span> · <span ref={sats}>14</span> sats</div>
       </div>
@@ -43,7 +43,7 @@ export function Takeoff() {
         <span className="flex items-center gap-2"><Icon name="heading" size={18} className="text-ice" /><span ref={heading}>300°</span></span>
         <span className="flex items-center gap-2"><Icon name="wind" size={18} className="text-ice" /><span ref={wind}>2.1 m/s</span></span>
       </div>
-      <div className="hud-corner absolute right-10 md:right-14 bottom-24 md:bottom-28 text-right mono text-ice/70 text-xs">
+      <div className="hud-corner absolute right-10 md:right-14 bottom-24 md:bottom-28 text-right mono text-ice/70 text-xs hidden md:block">
         <div>9.0105° N · 38.7613° E</div><div>UTM 37N · WGS 84</div>
       </div>
       {/* frame corners */}

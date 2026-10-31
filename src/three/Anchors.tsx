@@ -60,7 +60,7 @@ export function SensorAnchors({ poseRef }: { poseRef: React.MutableRefObject<Pos
   const fh = 209 / 46
   const on = useWindowActive(SENSOR_WINDOW)
   void poseRef
-  if (!on) return null
+  if (!on || useFilm.getState().isMobile) return null
   return (
     <group>
       {SENSORS.map((s) => (

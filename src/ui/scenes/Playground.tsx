@@ -19,12 +19,14 @@ export function Playground() {
   const hovered = useFilm((s) => s.hovered)
   const scanReplay = useFilm((s) => s.scanReplay)
   const set = useFilm((s) => s.set)
+  const isMobile = useFilm((s) => s.isMobile)
+  const touchOrbit = useFilm((s) => s.touchOrbit)
   const [hint, setHint] = useState(true)
   useFilmTween((tl) => {
     tl.fromTo(root.current, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 22.7)
     tl.to(root.current, { autoAlpha: 0, y: 30, duration: 0.5, ease: 'power2.in' }, 27.6)
   })
-  useEffect(() => { if (!active) set({ measuring: false, scanReplay: null }) }, [active, set])
+  useEffect(() => { if (!active) set({ measuring: false, scanReplay: null, touchOrbit: false }) }, [active, set])
   const dist = pins.length === 2 ? Math.hypot(pins[1][0] - pins[0][0], pins[1][2] - pins[0][2]) : 0
   const dh = pins.length === 2 ? Math.abs(pins[1][1] - pins[0][1]) : 0
   const toggleClass = (i: number) => { const m = classMask.slice(); m[i] = !m[i]; set({ classMask: m }) }
@@ -38,9 +40,12 @@ export function Playground() {
         {hovered.kind === 'building' && (
           <div className="mt-2 mono text-ice/80 text-xs">Building · {hovered.data?.height} m · {hovered.data?.footprint} m² footprint · {hovered.data?.floors} floors · E {Math.round(UTM_ORIGIN.e + (hovered.data?.x as number)).toLocaleString('en-US')} N {Math.round(UTM_ORIGIN.n - (hovered.data?.z as number)).toLocaleString('en-US')}</div>
         )}
-        {hint && active && <div className="mt-3 text-ice/60 text-xs">Scroll on to continue the flight</div>}
+        {hint && active && <div className="mt-3 text-ice/60 text-xs">{isMobile ? (touchOrbit ? 'Drag to orbit, tap to measure. Turn Touch off to fly on' : 'Swipe on to continue the flight') : 'Scroll on to continue the flight'}</div>}
       </div>
       <div className="card mx-3 md:mx-auto mb-3 md:mb-6 md:max-w-[1060px] px-3 py-3 flex flex-nowrap md:flex-wrap overflow-x-auto md:overflow-visible items-center gap-x-5 gap-y-3 text-xs text-white [&>*]:shrink-0" onPointerDown={() => setHint(false)} data-lenis-prevent>
+        {isMobile && (
+          <button type="button" aria-pressed={touchOrbit} onClick={() => set({ touchOrbit: !touchOrbit, measuring: false, measurePins: [] })} className={`pill !h-9 !px-3 !text-xs ${touchOrbit ? 'solid' : ''}`}><Icon name="drone" size={16} draw={false} /> {touchOrbit ? 'Touch on' : 'Touch cloud'}</button>
+        )}
         <div className="flex items-center gap-1">
           <span className="label mr-2" style={{ fontSize: 10 }}>Colour</span>
           {(['elevation', 'intensity', 'classification', 'rgb'] as ColorMode[]).map((m) => (

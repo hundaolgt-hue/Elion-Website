@@ -78,13 +78,17 @@ export function Stage() {
   const playground = useFilm((s) => s.playground)
   const cover = useFilm((s) => s.footageCover)
   const footageMode = useFilm((s) => s.footageMode)
+  const isMobile = useFilm((s) => s.isMobile)
+  const touchOrbit = useFilm((s) => s.touchOrbit)
+  // On touch devices the canvas only takes input when the viewer opts in, so swipes keep scrolling the film
+  const interactive = playground && (!isMobile || touchOrbit)
   const showWorld = !footageMode
   const showCloud = !footageMode || playground
   const ref = poseRef as React.MutableRefObject<Pose>
   return (
     <>
     <div id="stage-html" className="fixed inset-0 z-[3] pointer-events-none" />
-    <div id="stage" className="fixed inset-0 z-[1]" style={{ pointerEvents: playground ? 'auto' : 'none', opacity: footageMode && !playground ? 0 : 1, transition: 'opacity 600ms ease' }} aria-hidden="true">
+    <div id="stage" className="fixed inset-0 z-[1]" style={{ pointerEvents: interactive ? 'auto' : 'none', opacity: footageMode && !playground ? 0 : 1, transition: 'opacity 600ms ease' }} aria-hidden="true">
       <Canvas
         frameloop={cover && !playground ? 'demand' : 'always'}
         dpr={tier === 'lite' ? [1, 1] : [1, 1.75]}
@@ -93,7 +97,7 @@ export function Stage() {
         shadows={false}
         eventSource={document.body}
         eventPrefix="client"
-        style={{ pointerEvents: playground ? 'auto' : 'none' }}
+        style={{ pointerEvents: interactive ? 'auto' : 'none' }}
         onCreated={({ gl }) => { gl.setClearColor('#0A1B33', 1); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05 }}
       >
         <Pointer />

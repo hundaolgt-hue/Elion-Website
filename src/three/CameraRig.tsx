@@ -14,6 +14,7 @@ import { choreo, type Pose } from './choreo'
 export function CameraRig({ poseRef }: { poseRef: React.MutableRefObject<Pose> }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera
   const size = useThree((s) => s.size)
+  const gl = useThree((s) => s.gl)
   const controls = useRef<OrbitControlsImpl>(null!)
   const blend = useRef(0) // 1 = fully on orbit controls
   const wasPlayground = useRef(false)
@@ -87,5 +88,6 @@ export function CameraRig({ poseRef }: { poseRef: React.MutableRefObject<Pose> }
     if (Math.abs(camera.fov - pose.cam.fov) > 0.01) { camera.fov += (pose.cam.fov - camera.fov) * k; camera.updateProjectionMatrix() }
   }, -10)
 
-  return <OrbitControls ref={controls} enabled={false} enableDamping dampingFactor={0.08} enablePan minDistance={40} maxDistance={1600} maxPolarAngle={Math.PI * 0.49} makeDefault={false} enableZoom={false} />
+  // Bound to the canvas, not the body the Canvas events run through: OrbitControls sets touch-action: none on its element, which on the body would block touch scrolling everywhere
+  return <OrbitControls ref={controls} domElement={gl.domElement} enabled={false} enableDamping dampingFactor={0.08} enablePan minDistance={40} maxDistance={1600} maxPolarAngle={Math.PI * 0.49} makeDefault={false} enableZoom={false} />
 }

@@ -27,7 +27,7 @@ export function Stack() {
   })
   return (
     <div ref={root} className="fixed inset-0 z-20 pointer-events-none opacity-0" aria-hidden="true">
-      <div ref={layers} className="absolute right-4 md:right-14 top-24 w-[200px] md:w-[240px] space-y-1">
+      <div ref={layers} className="absolute right-4 md:right-14 top-24 w-[200px] md:w-[240px] space-y-1 hidden md:block">
         {STACK_LAYERS.map((l, i) => (
           <div key={l} className="card px-3 py-1.5 flex items-center gap-2 text-sm text-white opacity-0"><Icon name={LAYER_ICONS[i]} size={18} className="text-ice" /> {l}</div>
         ))}

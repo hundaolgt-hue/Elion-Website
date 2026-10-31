@@ -29,6 +29,8 @@ export interface FilmState {
   floors: boolean[]
   /** Free flight easter egg */
   freeFlight: boolean
+  /** Touch devices: when true the point cloud takes touch input (drag to orbit, tap to measure); otherwise swipes scroll the film */
+  touchOrbit: boolean
   /** True while scroll-scrubbed footage fully covers the screen (the 3D loop idles) */
   footageCover: boolean
   /** True once the footage manifest is loaded: the 3D world stays hidden except the interactive point cloud */
@@ -73,6 +75,7 @@ export const useFilm = create<FilmState>((set, get) => ({
   measuring: false,
   floors: Array.from({ length: 46 }, (_, i) => i % 7 !== 3),
   freeFlight: false,
+  touchOrbit: false,
   footageCover: false,
   footageMode: false,
   pointer: { x: 0, y: 0 },

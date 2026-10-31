@@ -60,7 +60,7 @@ function ChapterBlock({ c }: { c: Chapter }) {
       <div data-line className="label mb-3">{c.eyebrow}</div>
       <h2 data-line className="display text-white" style={{ fontSize: 'clamp(1.6rem, 1rem + 2.4vw, 3.4rem)', fontWeight: 700 }}>{c.title}</h2>
       <p data-line className="mt-4 text-ice/85 text-[15px] md:text-[17px] leading-relaxed max-w-[48ch]">{c.body}</p>
-      <ul className={`mt-5 space-y-2 ${c.side === 'right' ? 'md:items-end' : ''} flex flex-col`}>
+      <ul className={`mt-5 space-y-2 ${c.side === 'right' ? 'md:items-end' : ''} hidden md:flex flex-col`}>
         {c.points.map((p) => (
           <li key={p.text} data-line className="flex items-center gap-3 text-[13px] md:text-sm text-white/90">
             <span className="w-8 h-8 rounded-full border border-sky/40 bg-navy-900/50 flex items-center justify-center shrink-0"><Icon name={p.icon} size={16} className="text-ice" /></span>
