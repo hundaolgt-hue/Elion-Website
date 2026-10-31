@@ -20,6 +20,7 @@ import { Landing } from '@/ui/scenes/Landing'
 import { About } from '@/ui/About'
 import { FreeFlight, Favicon, Summary } from '@/ui/Delights'
 import { FrameSequence } from '@/video/FrameSequence'
+import { Grain } from '@/ui/Grain'
 import { Reduced } from '@/ui/Reduced'
 import { SceneLabels } from '@/ui/SceneLabels'
 
@@ -44,6 +45,7 @@ export default function App() {
       <Favicon />
       <Suspense fallback={null}><Stage /></Suspense>
       <FrameSequence />
+      {!reduced && <Grain />}
       <Preloader onDone={onDone} />
       <Navbar onSummary={() => setSummary(true)} />
       <Summary open={summary} onClose={() => setSummary(false)} />

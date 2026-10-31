@@ -21,7 +21,7 @@ export function Playground() {
   const set = useFilm((s) => s.set)
   const [hint, setHint] = useState(true)
   useFilmTween((tl) => {
-    tl.fromTo(root.current, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 22.2)
+    tl.fromTo(root.current, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 22.7)
     tl.to(root.current, { autoAlpha: 0, y: 30, duration: 0.5, ease: 'power2.in' }, 25.7)
   })
   useEffect(() => { if (!active) set({ measuring: false, scanReplay: null }) }, [active, set])

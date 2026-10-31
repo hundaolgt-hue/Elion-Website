@@ -1,0 +1,26 @@
+{
+  "clips": [
+    {
+      "id": "c01",
+      "start": 0,
+      "end": 12,
+      "frames": 64,
+      "pattern": "/film/c01/f{i}.webp",
+      "patternSm": "/film/c01/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
+    },
+    {
+      "id": "c02",
+      "start": 12,
+      "end": 22,
+      "frames": 64,
+      "pattern": "/film/c02/f{i}.webp",
+      "patternSm": "/film/c02/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
+    }
+  ]
+}

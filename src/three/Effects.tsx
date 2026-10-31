@@ -30,7 +30,7 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
   // vignette in Navy 900 (never black)
   vec3 navy = vec3(0.039, 0.106, 0.2);
   float vig = smoothstep(0.25, 0.9, r2 * 1.6);
-  col = mix(col, mix(navy, vec3(1.0), uDawn), vig * (0.55 - 0.45 * uDawn));
+  col = mix(col, mix(navy, vec3(1.0), uDawn), vig * (0.3 - 0.25 * uDawn));
   outputColor = vec4(col, inputColor.a);
 }`
 

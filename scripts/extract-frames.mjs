@@ -19,9 +19,9 @@ const extract = (src, dir, width, quality) => {
 }
 for (const c of plan.clips) {
   if (!c.src || !existsSync(c.src)) { console.log(`skip ${c.id}: no source yet (${c.src ?? 'unset'})`); continue }
-  const frames = extract(c.src, `public/film/${c.id}`, c.width ?? 1280, c.quality ?? 78)
-  extract(c.src, `public/film/${c.id}/sm`, 720, 72)
-  clips.push({ id: c.id, start: c.start, end: c.end, frames, pattern: `/film/${c.id}/f{i}.webp`, patternSm: `/film/${c.id}/sm/f{i}.webp`, blend: c.blend ?? 'normal', opacity: c.opacity ?? 1, fade: c.fade ?? 1.2 })
+  const frames = extract(c.src, `public/film/${c.id}`, c.width ?? 1120, c.quality ?? 72)
+  extract(c.src, `public/film/${c.id}/sm`, 640, 66)
+  clips.push({ id: c.id, start: c.start, end: c.end, frames, pattern: `/film/${c.id}/f{i}.webp`, patternSm: `/film/${c.id}/sm/f{i}.webp`, blend: c.blend ?? 'normal', opacity: c.opacity ?? 1, fade: c.fade ?? 0.8 })
   console.log(`${c.id}: ${frames} frames`)
 }
 mkdirSync('public/film', { recursive: true })
