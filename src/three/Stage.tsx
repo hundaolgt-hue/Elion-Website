@@ -93,7 +93,7 @@ export function Stage() {
         shadows={false}
         eventSource={document.body}
         eventPrefix="client"
-        style={{ pointerEvents: 'auto' }}
+        style={{ pointerEvents: playground ? 'auto' : 'none' }}
         onCreated={({ gl }) => { gl.setClearColor('#0A1B33', 1); gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05 }}
       >
         <Pointer />

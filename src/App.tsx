@@ -63,7 +63,7 @@ export default function App() {
             </div>
           )}
         </div>
-        <About />
+        <div className="relative z-10"><About /></div>
       </main>
     </>
   )
