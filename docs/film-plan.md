@@ -65,3 +65,28 @@ FFMPEG=ffmpeg node scripts/extract-frames.mjs docs/film-plan.json
 ```
 
 The site picks up `public/film/manifest.json` automatically; the layer stays dormant without it.
+
+## Production record (31 Oct 2026)
+
+All clips were generated with Seedance 2.0 at 720p, 8 s, 16:9, high bitrate, no audio, chained
+frame to frame from the approved K0 still (Nano Banana 2, 2K). 1080p was quoted at 96 credits per clip
+against 36 for 720p; with the available balance the chain was produced at 720p and is scrubbed at 8 fps
+from 1,120 px WebP frames (640 px on phones). Re-render at 1080p / 4K with the same job prompts when budget allows.
+
+| Clip | Higgsfield job |
+|------|----------------|
+| k0 | `c373d412-6325-43c6-ae2b-c29c7f85c5f7` |
+| c01 | `c9ce63fc-8c1f-48b6-82e5-d8125bf2baf6` |
+| c02 | `b59079f2-82b1-4877-a3ff-e79f2add7d92` |
+| c03 | `80252f50-8446-457d-9651-bd558d89a54a` |
+| c04a | `19fc6eda-3099-45b1-9821-732d8665f059` |
+| c04b | `5d11c47c-4239-49cc-9215-224c14ed9d7f` |
+| c05 | `04de7d76-ca83-416c-ad91-169620fd4edc` |
+| c06 | `a909a5e3-76f2-4c75-9cd7-f6282cdc62c8` |
+| c07 | `1c4cfdbc-4f47-4732-8f1a-143f76bd51f8` |
+| c08 | `3288afa0-8381-4898-bc7e-eafca7503493` |
+| c09 | `fe2eafe8-75ed-4701-aafc-3de36a6843e2` |
+| c10 | `7b120d8a-c7f7-4b08-92b8-25adcaeff10e` |
+
+Frames: `public/film/<clip>/f0000.webp …` and `public/film/<clip>/sm/…`; manifest: `public/film/manifest.json`.
+The playground (22 – 26 %) is the one window left to the real-time 3D on purpose: it is interactive.
