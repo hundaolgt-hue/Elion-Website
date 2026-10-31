@@ -2,6 +2,8 @@
 export function Grain() {
   return (
     <div className="fixed inset-0 z-[4] pointer-events-none" aria-hidden="true">
+      {/* brand grade: pulls any stray warm light in the footage back onto the blue palette, luminance untouched */}
+      <div className="absolute inset-0" style={{ background: '#1E63D6', mixBlendMode: 'color', opacity: 0.28 }} />
       <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 55%, rgba(10,27,51,0.45) 100%)' }} />
       <svg className="absolute inset-0 w-full h-full opacity-[0.035] mix-blend-overlay" xmlns="http://www.w3.org/2000/svg">
         <filter id="elyon-grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"><animate attributeName="seed" from="1" to="12" dur="0.6s" repeatCount="indefinite" /></feTurbulence><feColorMatrix type="saturate" values="0" /></filter>
