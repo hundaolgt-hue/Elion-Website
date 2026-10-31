@@ -11,10 +11,10 @@ export function ProgressRail() {
     if (fill.current) fill.current.style.transform = `scaleY(${s.progress})`
     const pct = s.progress * 100
     let id = 'launch'
-    for (const sc of SCENES) if (pct >= sc.start && sc.id !== 'playground' && sc.id !== 'passthrough') id = sc.id
+    for (const sc of SCENES) if (pct >= sc.start && sc.id !== 'passthrough') id = sc.id
     setCurrent(id)
   }), [])
-  const scenes = SCENES.filter((s) => s.id !== 'playground' && s.id !== 'passthrough')
+  const scenes = SCENES.filter((s) => s.id !== 'passthrough')
   return (
     <nav className="rail fixed right-0 top-0 bottom-0 z-40 hidden md:flex items-stretch" aria-label="Film progress" style={{ width: 28 }}>
       <div className="relative mx-auto my-[12vh] w-px bg-ice/20">

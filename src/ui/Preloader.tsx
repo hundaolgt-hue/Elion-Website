@@ -32,7 +32,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <div ref={root} className="fixed inset-0 z-[100] bg-navy-900 flex items-center justify-center" role="status" aria-live="polite" aria-label="Loading Elyon Aerial Services">
       <div className="relative" style={{ width: 'min(60vw, 300px)' }}>
-        <img ref={img} src="/brand/lockup-dark.png" alt="Elyon Aerial Services" className="w-full h-auto" style={{ opacity: 0 }} />
+        <img ref={img} src="/brand/lockup-dark.svg" alt="Elyon Aerial Services" className="w-full h-auto" style={{ opacity: 0 }} />
         <div ref={line} className="absolute left-[-10%] right-[-10%] h-px bg-sky" style={{ top: 0, boxShadow: '0 0 18px 2px rgba(79,165,255,0.7)' }} />
       </div>
     </div>

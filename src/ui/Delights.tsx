@@ -84,7 +84,7 @@ export function Summary({ open, onClose }: { open: boolean; onClose: () => void 
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-2">
-          {SCENES.filter((s) => s.id !== 'playground' && s.id !== 'passthrough').map((s) => <button key={s.id} type="button" className="pill !h-9 !text-xs" onClick={() => { onClose(); flyTo(s.id) }}>{s.n} · {s.label}</button>)}
+          {SCENES.filter((s) => s.id !== 'passthrough').map((s) => <button key={s.id} type="button" className="pill !h-9 !text-xs" onClick={() => { onClose(); flyTo(s.id) }}>{s.n} · {s.label}</button>)}
         </div>
         <div className="mt-12 card p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4"><Logo variant="mark" height={44} /><div><div className="font-display font-semibold">Request a demo</div><div className="text-sm text-ice/80">hello@elyonaerial.com · Imperial BMA Plaza, Bole, Addis Ababa</div></div></div>

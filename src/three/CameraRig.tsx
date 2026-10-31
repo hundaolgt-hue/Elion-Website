@@ -27,10 +27,21 @@ export function CameraRig({ poseRef }: { poseRef: React.MutableRefObject<Pose> }
   useEffect(() => {
     const down = (e: KeyboardEvent) => { keys.current[e.key] = true; if (useFilm.getState().freeFlight && e.key.startsWith('Arrow')) e.preventDefault() }
     const up = (e: KeyboardEvent) => { keys.current[e.key] = false }
+    const zoom = (e: Event) => {
+      const f = (e as CustomEvent<number>).detail
+      const c = controls.current
+      if (!c || !c.enabled) return
+      if (f === 0) { c.target.set(0, 70, 0); camera.position.set(170, 320, 300); c.update(); return }
+      const dir = camera.position.clone().sub(c.target)
+      const len = THREE.MathUtils.clamp(dir.length() * f, 40, 1600)
+      camera.position.copy(c.target).add(dir.normalize().multiplyScalar(len))
+      c.update()
+    }
     window.addEventListener('keydown', down)
     window.addEventListener('keyup', up)
-    return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up) }
-  }, [])
+    window.addEventListener('elyon:zoom', zoom)
+    return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('elyon:zoom', zoom) }
+  }, [camera])
 
   useFrame((state, dt) => {
     const s = useFilm.getState()

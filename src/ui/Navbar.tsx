@@ -5,7 +5,7 @@ import { flyTo } from '@/lib/film'
 import { useFilm } from '@/lib/store'
 import { enableSound, disableSound } from '@/lib/audio'
 
-const LINKS: [string, string][] = [['Services', 'scan'], ['Platform', 'twin'], ['Industries', 'land'], ['About', 'about']]
+const LINKS: [string, string][] = [['Services', 'scan'], ['Explore data', 'playground'], ['Platform', 'twin'], ['Industries', 'land'], ['About', 'about']]
 
 export function Navbar({ onSummary }: { onSummary: () => void }) {
   const soundOn = useFilm((s) => s.soundOn)

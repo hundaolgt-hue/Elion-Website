@@ -93,10 +93,10 @@ export const SCENES = [
   { id: 'launch', n: '00', label: 'Launch pad', start: 0, end: 4 },
   { id: 'takeoff', n: '01', label: 'Aerial precision', start: 4, end: 12 },
   { id: 'scan', n: '02', label: 'LiDAR drone scans', start: 12, end: 24 },
-  { id: 'playground', n: '02b', label: 'Touch the data', start: 22, end: 26 },
-  { id: 'twin', n: '03', label: 'Digital twin', start: 26, end: 31 },
-  { id: 'platform', n: '04', label: 'AI data platform', start: 31, end: 34 },
-  { id: 'passthrough', n: '04b', label: 'Through the screen', start: 34, end: 40 },
+  { id: 'playground', n: '02b', label: 'Touch the data', start: 22, end: 28 },
+  { id: 'twin', n: '03', label: 'Digital twin', start: 28, end: 32 },
+  { id: 'platform', n: '04', label: 'AI data platform', start: 32, end: 34.5 },
+  { id: 'passthrough', n: '04b', label: 'Through the screen', start: 34.5, end: 40 },
   { id: 'bim', n: '05', label: 'Scan to BIM', start: 40, end: 54 },
   { id: 'sync', n: '06', label: 'Live twin', start: 54, end: 62 },
   { id: 'cadastre', n: '07', label: '3D cadastre', start: 62, end: 72 },
@@ -110,7 +110,7 @@ export type SceneId = (typeof SCENES)[number]['id']
 export const sceneAt = (p: number) => {
   const pct = p * 100
   let cur: (typeof SCENES)[number] = SCENES[0]
-  for (const s of SCENES) if (pct >= s.start && s.id !== 'playground' && s.id !== 'passthrough') cur = s
+  for (const s of SCENES) if (pct >= s.start && s.id !== 'passthrough') cur = s
   return cur
 }
 

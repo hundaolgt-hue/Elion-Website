@@ -18,12 +18,12 @@ export function Platform() {
   const cursor = useRef<HTMLDivElement>(null)
   const [tab, setTab] = useState(0)
   useFilmTween((tl) => {
-    tl.fromTo(head.current, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 31.4)
-    tl.fromTo(ui.current, { autoAlpha: 0, y: 30, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 31.9)
-    tl.fromTo('.chart-bar', { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' }, 32.2)
-    tl.fromTo('.solar-roof', { autoAlpha: 0.15 }, { autoAlpha: 1, duration: 0.2, stagger: 0.08 }, 32.6)
-    tl.to(head.current, { autoAlpha: 0, y: -40, duration: 0.5, ease: 'power2.in' }, 35.4)
-    tl.to(ui.current, { autoAlpha: 0, scale: 1.06, filter: 'blur(8px)', duration: 0.7, ease: 'power2.in' }, 35.8)
+    tl.fromTo(head.current, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 32.3)
+    tl.fromTo(ui.current, { autoAlpha: 0, y: 30, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 32.7)
+    tl.fromTo('.chart-bar', { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' }, 33)
+    tl.fromTo('.solar-roof', { autoAlpha: 0.15 }, { autoAlpha: 1, duration: 0.2, stagger: 0.08 }, 33.3)
+    tl.to(head.current, { autoAlpha: 0, y: -40, duration: 0.5, ease: 'power2.in' }, 35.6)
+    tl.to(ui.current, { autoAlpha: 0, scale: 1.06, filter: 'blur(8px)', duration: 0.7, ease: 'power2.in' }, 36)
   })
   useEffect(() => useFilm.subscribe((s) => {
     if (!cursor.current || !ui.current) return

@@ -85,7 +85,8 @@ export function flyTo(id: string, duration = 1.8) {
   if (!trigger) return
   const s = SCENES.find((x) => x.id === id)
   if (!s) return
-  const target = trigger.start + ((s.start + 0.3) / 100) * (trigger.end - trigger.start)
+  const inset = s.id === 'playground' ? 1.2 : 0.3
+  const target = trigger.start + ((s.start + inset) / 100) * (trigger.end - trigger.start)
   if (lenis) lenis.scrollTo(target, { duration, easing: (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) })
   else window.scrollTo({ top: target, behavior: 'smooth' })
 }

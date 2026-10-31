@@ -21,17 +21,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8,
-      "hold": 26,
+      "hold": 28,
       "recess": [
         22.6,
-        25.6,
-        0.35
+        27.4,
+        0.3
       ]
     },
     {
       "id": "c03",
-      "start": 26,
-      "end": 31,
+      "start": 28,
+      "end": 32,
       "frames": 64,
       "pattern": "/film/c03/f{i}.webp",
       "patternSm": "/film/c03/sm/f{i}.webp",
@@ -41,8 +41,8 @@
     },
     {
       "id": "c04a",
-      "start": 31,
-      "end": 34,
+      "start": 32,
+      "end": 34.5,
       "frames": 64,
       "pattern": "/film/c04a/f{i}.webp",
       "patternSm": "/film/c04a/sm/f{i}.webp",
@@ -52,7 +52,7 @@
     },
     {
       "id": "c04b",
-      "start": 34,
+      "start": 34.5,
       "end": 40,
       "frames": 64,
       "pattern": "/film/c04b/f{i}.webp",

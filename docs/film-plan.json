@@ -11,29 +11,29 @@
       "src": "footage/c02.mp4",
       "start": 12,
       "end": 22,
-      "hold": 26,
+      "hold": 28,
       "recess": [
         22.6,
-        25.6,
-        0.35
+        27.4,
+        0.3
       ]
     },
     {
       "id": "c03",
       "src": "footage/c03.mp4",
-      "start": 26,
-      "end": 31
+      "start": 28,
+      "end": 32
     },
     {
       "id": "c04a",
       "src": "footage/c04a.mp4",
-      "start": 31,
-      "end": 34
+      "start": 32,
+      "end": 34.5
     },
     {
       "id": "c04b",
       "src": "footage/c04b.mp4",
-      "start": 34,
+      "start": 34.5,
       "end": 40
     },
     {

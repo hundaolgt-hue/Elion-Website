@@ -102,10 +102,10 @@ export function choreo(p: number, t: number, aspect: number): Pose {
   const pct = p * 100
   const back = 1 - seg(p, 36.4, 38.4) // after the pass-through the city is physical again
   fx.scan = lin(p, 12, 21.5) * back
-  fx.playground = pct >= 22 && pct <= 26 ? 1 : 0
-  fx.twin = seg(p, 26, 29.5) * back
-  fx.sectionCut = lin(p, 27, 30.5)
-  fx.laptop = seg(p, 31, 33.5) * (1 - seg(p, 36.2, 38))
+  fx.playground = pct >= 22 && pct <= 28 ? 1 : 0
+  fx.twin = seg(p, 28, 31) * back
+  fx.sectionCut = lin(p, 28.5, 31.5)
+  fx.laptop = seg(p, 32, 34.2) * (1 - seg(p, 36.2, 38))
   fx.ripple = bell(p, 36.9, 0.9)
   fx.bim = lin(p, 41, 51)
   fx.deviation = seg(p, 51.5, 53.5) * (1 - seg(p, 54.5, 55.5))
@@ -121,9 +121,9 @@ export function choreo(p: number, t: number, aspect: number): Pose {
   // The physical city is replaced by points during the scan, is a twin until the pass-through,
   // and is physical again from the CBE scene on. Points fade when the twin hardens.
   fx.cityPhysical = pct < 37 ? 1 : 1
-  fx.pointsFade = (1 - seg(p, 27.5, 30)) * back
+  fx.pointsFade = (1 - seg(p, 29.5, 31.5)) * back
   fx.droneLight = seg(p, 1, 4)
-  fx.orbitGlow = bell(p, 28.5, 3)
+  fx.orbitGlow = bell(p, 30, 2.5)
 
   // Rotors: start on the first scroll, spin down on landing
   d.rotor = seg(p, 0.15, 1.4) * (1 - seg(p, 96.5, 99.6))
@@ -151,18 +151,18 @@ export function choreo(p: number, t: number, aspect: number): Pose {
   } else if (pct < 22.5) {
     spline(TOCENTER, seg(p, 21.5, 22.5), d.pos)
     d.yaw = lerp(surveyPose(1).heading, Math.PI, seg(p, 21.5, 22.5))
-  } else if (pct < 31) {
+  } else if (pct < 32) {
     d.pos.set(0, ALT, 0)
-    d.yaw = Math.PI + seg(p, 26, 31) * Math.PI // turns with the orbiting camera
-  } else if (pct < 34) {
+    d.yaw = Math.PI + seg(p, 28, 32) * Math.PI // turns with the orbiting camera
+  } else if (pct < 34.5) {
     d.pos.set(0, ALT, 0)
     d.yaw = Math.PI * 2
-    d.scale = lerp(1, 40, seg(p, 31, 33.5)) // the hologram drone grows with the laptop
+    d.scale = lerp(1, 40, seg(p, 32, 34.2)) // the hologram drone grows with the laptop
   } else if (pct < 40) {
     // Flies out of the laptop toward the viewer, through the screen glass, then on to the tower.
     // The camera chases at a distance proportional to the drone's scale, so the drone keeps its
     // on-screen size while it shrinks from hologram scale back to 1.2 m.
-    const k = seg(p, 34, 40, easeInOutCubic)
+    const k = seg(p, 34.5, 40, easeInOutCubic)
     spline(PASS_ROUTE, k, d.pos)
     d.scale = lerp(40, 1, seg(p, 35, 39))
     d.yaw = lerpAngle(routeYaw(PASS_ROUTE, k), HELIX_YAW0, seg(p, 39, 40))
@@ -224,20 +224,20 @@ export function choreo(p: number, t: number, aspect: number): Pose {
     c.pos.lerp(pgPos, k)
     c.look.lerp(pgLook, k)
     c.fov = 50
-  } else if (pct < 26) {
+  } else if (pct < 28) {
     c.pos.set(170, 320, 300)
     c.look.set(0, 70, 0)
     c.fov = 50
-  } else if (pct < 31) {
+  } else if (pct < 32) {
     // 180 degree orbit around the hovering drone
-    const k = seg(p, 26, 31)
+    const k = seg(p, 28, 32)
     const a0 = Math.atan2(300, 170), a = a0 + Math.PI * k
     const r = lerp(345, 420, k), y = lerp(320, 360, k)
     c.pos.set(Math.cos(a) * r, y, Math.sin(a) * r)
     c.look.set(0, lerp(70, 90, k), 0)
     c.fov = 50
-  } else if (pct < 34) {
-    const k = seg(p, 31, 34, easeInOutCubic)
+  } else if (pct < 34.5) {
+    const k = seg(p, 32, 34.5, easeInOutCubic)
     const a = Math.atan2(300, 170) + Math.PI
     const from = v[8].set(Math.cos(a) * 420, 360, Math.sin(a) * 420)
     c.pos.lerpVectors(from, v[9].set(0, 1900, 3600), k)
@@ -248,7 +248,7 @@ export function choreo(p: number, t: number, aspect: number): Pose {
     const toC = v[5].set(CBE.x - d.pos.x, 0, CBE.z - d.pos.z).normalize()
     const chase = v[6].copy(d.pos).addScaledVector(toC, -84 * s).setY(d.pos.y + 26 * s)
     const chaseLook = v[1].copy(d.pos).addScaledVector(toC, 30 * s).setY(d.pos.y - 10 * s)
-    const k = seg(p, 34, 35.6, easeInOutCubic)
+    const k = seg(p, 34.5, 36, easeInOutCubic)
     c.pos.lerpVectors(v[8].set(0, 1900, 3600), chase, k)
     c.look.lerpVectors(v[9].set(0, 150, -250), chaseLook, k)
     c.fov = lerp(44, 48, seg(p, 36, 39))
