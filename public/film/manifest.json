@@ -87,6 +87,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c08",
+      "start": 72,
+      "end": 84,
+      "frames": 64,
+      "pattern": "/film/c08/f{i}.webp",
+      "patternSm": "/film/c08/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }
