@@ -76,6 +76,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c07",
+      "start": 62,
+      "end": 72,
+      "frames": 64,
+      "pattern": "/film/c07/f{i}.webp",
+      "patternSm": "/film/c07/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }
