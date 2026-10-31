@@ -109,6 +109,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c10",
+      "start": 92,
+      "end": 100,
+      "frames": 64,
+      "pattern": "/film/c10/f{i}.webp",
+      "patternSm": "/film/c10/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }

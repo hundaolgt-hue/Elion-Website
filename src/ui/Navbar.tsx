@@ -11,7 +11,7 @@ export function Navbar({ onSummary }: { onSummary: () => void }) {
   const soundOn = useFilm((s) => s.soundOn)
   const [light, setLight] = useState(false)
   const [open, setOpen] = useState(false)
-  useEffect(() => useFilm.subscribe((s) => setLight(s.pageProgress > 0.93)), [])
+  useEffect(() => useFilm.subscribe((s) => setLight(s.pageProgress > 0.855)), [])
   const go = (id: string) => {
     setOpen(false)
     if (id === 'about' || id === 'contact') document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
