@@ -1,23 +1,29 @@
-// Split the Seedance clips into scroll-scrubbable WebP sequences and write public/film/manifest.json.
-// Usage: node scripts/extract-frames.mjs docs/film-plan.json
-// Each clip entry: { id, src (mp4), start, end (film percent), fps (default 24), width (default 1600), blend, opacity }
+// Split approved Seedance clips into scroll-scrubbable WebP sequences (desktop 1280 px, mobile 720 px)
+// and write public/film/manifest.json. Usage: node scripts/extract-frames.mjs docs/film-plan.json
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync, rmSync } from 'node:fs'
 
 const planPath = process.argv[2] ?? 'docs/film-plan.json'
 const plan = JSON.parse(readFileSync(planPath, 'utf8'))
 const ffmpeg = process.env.FFMPEG ?? 'ffmpeg'
+const FPS = plan.fps ?? 10
 const clips = []
+const extract = (src, dir, width, quality) => {
+  rmSync(dir, { recursive: true, force: true })
+  mkdirSync(dir, { recursive: true })
+  execFileSync(ffmpeg, ['-y', '-loglevel', 'error', '-i', src, '-vf', `fps=${FPS},scale=${width}:-2:flags=lanczos`, '-c:v', 'libwebp', '-quality', String(quality), '-compression_level', '6', `${dir}/t%04d.webp`])
+  // ffmpeg numbers from 1; the player is 0-based
+  const files = readdirSync(dir).filter((f) => f.endsWith('.webp')).sort()
+  files.forEach((f, i) => renameSync(`${dir}/${f}`, `${dir}/f${String(i).padStart(4, '0')}.webp`))
+  return files.length
+}
 for (const c of plan.clips) {
   if (!c.src || !existsSync(c.src)) { console.log(`skip ${c.id}: no source yet (${c.src ?? 'unset'})`); continue }
-  const dir = `public/film/${c.id}`
-  mkdirSync(dir, { recursive: true })
-  execFileSync(ffmpeg, ['-y', '-i', c.src, '-vf', `fps=${c.fps ?? 24},scale=${c.width ?? 1600}:-2`, '-quality', '82', `${dir}/f%04d.webp`], { stdio: 'inherit' })
-  const frames = readdirSync(dir).filter((f) => f.endsWith('.webp')).length
-  clips.push({ id: c.id, start: c.start, end: c.end, frames, pattern: `/film/${c.id}/f{i}.webp`, blend: c.blend ?? 'screen', opacity: c.opacity ?? 0.9 })
+  const frames = extract(c.src, `public/film/${c.id}`, c.width ?? 1280, c.quality ?? 78)
+  extract(c.src, `public/film/${c.id}/sm`, 720, 72)
+  clips.push({ id: c.id, start: c.start, end: c.end, frames, pattern: `/film/${c.id}/f{i}.webp`, patternSm: `/film/${c.id}/sm/f{i}.webp`, blend: c.blend ?? 'normal', opacity: c.opacity ?? 1, fade: c.fade ?? 1.2 })
   console.log(`${c.id}: ${frames} frames`)
 }
-// frame names are 1-based from ffmpeg; the player is 0-based, so shift the pattern
 mkdirSync('public/film', { recursive: true })
-writeFileSync('public/film/manifest.json', JSON.stringify({ clips: clips.map((c) => ({ ...c, pattern: c.pattern })) }, null, 2))
+writeFileSync('public/film/manifest.json', JSON.stringify({ clips }, null, 2))
 console.log(`manifest: ${clips.length} clips`)

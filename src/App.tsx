@@ -51,7 +51,7 @@ export default function App() {
       {!reduced && <FreeFlight />}
       <main id="top">
         {/* The film: a 2,200 vh scroll container; everything the viewer sees is fixed and driven by its progress */}
-        <div id="film" ref={film} className="relative" style={{ height: reduced ? '100vh' : '2200vh' }} aria-label="Elyon flight film">
+        <div id="film" ref={film} className="relative" style={{ height: reduced ? '100vh' : '2200vh' }} role="region" aria-label="Elyon flight film">
           {reduced ? (
             <Reduced />
           ) : (

@@ -29,6 +29,8 @@ export interface FilmState {
   floors: boolean[]
   /** Free flight easter egg */
   freeFlight: boolean
+  /** True while scroll-scrubbed footage fully covers the screen (the 3D loop idles) */
+  footageCover: boolean
   /** Pointer in normalized device coords */
   pointer: { x: number; y: number }
   hovered: { kind: 'none' | 'building' | 'drone' | 'card' | 'point'; data?: Record<string, string | number> }
@@ -69,6 +71,7 @@ export const useFilm = create<FilmState>((set, get) => ({
   measuring: false,
   floors: Array.from({ length: 46 }, (_, i) => i % 7 !== 3),
   freeFlight: false,
+  footageCover: false,
   pointer: { x: 0, y: 0 },
   hovered: { kind: 'none' },
   setProgress: (progress, velocity) => set({ progress, velocity }),

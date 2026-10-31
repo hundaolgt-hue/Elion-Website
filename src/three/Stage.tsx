@@ -69,10 +69,14 @@ function Pointer() {
 export function Stage() {
   const tier = useFilm((s) => s.tier)
   const playground = useFilm((s) => s.playground)
+  const cover = useFilm((s) => s.footageCover)
   const ref = poseRef as React.MutableRefObject<Pose>
   return (
+    <>
+    <div id="stage-html" className="fixed inset-0 z-[3] pointer-events-none" />
     <div id="stage" className="fixed inset-0 z-0" style={{ pointerEvents: playground ? 'auto' : 'none' }} aria-hidden="true">
       <Canvas
+        frameloop={cover ? 'demand' : 'always'}
         dpr={tier === 'lite' ? [1, 1] : [1, 1.75]}
         gl={{ antialias: tier === 'lite', powerPreference: 'high-performance', logarithmicDepthBuffer: true, alpha: false, stencil: false }}
         camera={{ fov: 45, near: 0.2, far: 30000, position: [0, 80, 200] }}
@@ -110,5 +114,6 @@ export function Stage() {
         </Suspense>
       </Canvas>
     </div>
+    </>
   )
 }

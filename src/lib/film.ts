@@ -114,7 +114,10 @@ export function splitChars(el: HTMLElement) {
   if (el.dataset.split) return Array.from(el.querySelectorAll<HTMLElement>('.ch'))
   const text = el.textContent ?? ''
   el.textContent = ''
-  el.setAttribute('aria-label', text)
+  const sr = document.createElement('span')
+  sr.className = 'sr-only'
+  sr.textContent = text
+  el.appendChild(sr)
   const frag = document.createDocumentFragment()
   const out: HTMLElement[] = []
   const words = text.split(' ')

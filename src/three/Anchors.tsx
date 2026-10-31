@@ -6,6 +6,9 @@ import { useFilm } from '@/lib/store'
 import { Icon } from '@/icons/Icon'
 import type { Pose } from './choreo'
 
+/** 3D-anchored HTML goes into a fixed layer above the canvas and the footage, never into the scrolling document */
+const portal = { get current() { return document.getElementById('stage-html') as HTMLElement } }
+
 const TAG_WINDOW = (p: number) => p > 0.043 && p < 0.062
 const SENSOR_WINDOW = (p: number) => p > 0.555 && p < 0.615
 const PARCEL_WINDOW = (p: number) => p > 0.675 && p < 0.72
@@ -33,7 +36,7 @@ export function RooftopTags({ poseRef }: { poseRef: React.MutableRefObject<Pose>
   return (
     <group>
       {tags.map(([t, pos]) => (
-        <Html key={t} position={pos} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
+        <Html key={t} position={pos} center zIndexRange={[5, 0]} portal={portal} style={{ pointerEvents: 'none' }}>
           <span className="tag3d">{t}</span>
         </Html>
       ))}
@@ -61,7 +64,7 @@ export function SensorAnchors({ poseRef }: { poseRef: React.MutableRefObject<Pos
   return (
     <group>
       {SENSORS.map((s) => (
-        <Html key={s.label} position={[city.cbe.x + city.cbe.rx + 14, base + (s.floor + 0.5) * fh, city.cbe.z]} zIndexRange={[5, 0]} style={{ pointerEvents: 'auto' }}>
+        <Html key={s.label} position={[city.cbe.x + city.cbe.rx + 14, base + (s.floor + 0.5) * fh, city.cbe.z]} zIndexRange={[5, 0]} portal={portal} style={{ pointerEvents: 'auto' }}>
           <div className="sensor card" data-floor={s.floor}
             onPointerEnter={() => useFilm.getState().set({ hovered: { kind: 'card', data: { floor: s.floor } } })}
             onPointerLeave={() => useFilm.getState().set({ hovered: { kind: 'none' } })}
@@ -88,7 +91,7 @@ export function ParcelAnchors({ poseRef }: { poseRef: React.MutableRefObject<Pos
   return (
     <group>
       {picks.map((b, i) => (
-        <Html key={b.id} position={[b.x, b.y + Math.min(b.floors, 30) * 3.3 + 8, b.z]} zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
+        <Html key={b.id} position={[b.x, b.y + Math.min(b.floors, 30) * 3.3 + 8, b.z]} zIndexRange={[5, 0]} portal={portal} style={{ pointerEvents: 'none' }}>
           <div className="card parcel" style={{ animationDelay: `${i * 120}ms` }}>
             <div className="label" style={{ fontSize: 10 }}>Parcel {i === 0 ? '0412-07' : b.parcel.code}</div>
             <div className="text-white text-sm leading-snug mt-1">{i === 0 ? '612' : b.parcel.area.toLocaleString('en-US')} m² · {i === 0 ? 'Mixed-use' : b.parcel.use}<br />{i === 0 ? 9 : b.floors} floors · {i === 0 ? 32 : b.parcel.units} units<br /><span className="text-sky">Title: registered</span></div>

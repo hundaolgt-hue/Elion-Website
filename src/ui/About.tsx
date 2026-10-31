@@ -204,7 +204,7 @@ function Contact() {
       <div className="rounded-[36px] md:rounded-[999px] bg-navy-700 px-6 py-10 md:px-[9%] md:py-16 text-white overflow-hidden relative">
         <div className="md:flex md:items-start md:gap-12">
           <div className="md:w-[34%]">
-            <div className="label mb-3">Contact</div>
+            <div className="label mb-3 !text-sky">Contact</div>
             <h2 className="font-display font-semibold text-2xl md:text-4xl">What do you want to scan?</h2>
             <p className="mt-4 text-ice/80 text-sm leading-relaxed">City, building, corridor or land. Tell us the question your data has to answer and we will plan the flight.</p>
             <div className="mt-6 space-y-2 text-sm text-ice">
