@@ -50,8 +50,7 @@ never read as separate worlds. This document is the production plan for that lay
 | C04a | K3 → K4a | 31 – 34 | pull back until the laptop materialises |
 | C04b | K4a → K4b | 34 – 40 | **hardest join**: through the glass, scale continuous |
 | C05 | K4b → K5 | 40 – 54 | helix |
-| C06a | K5 → K6a | 54 – 57 | **hardest join**: split wipe |
-| C06b | K6a → K6b | 57 – 62 | sensors |
+| C06 | K5 → K6 | 54 – 62 | **hardest join**: split wipe, then sensors (merged into one clip in production) |
 | C07 | K6b → K7 | 62 – 72 | tilt to top-down |
 | C08 | K7 → K8 | 72 – 84 | out over the Entoto hills |
 | C09 | K8 → K9 | 84 – 92 | home at sunrise |

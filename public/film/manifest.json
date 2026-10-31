@@ -65,6 +65,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c06",
+      "start": 54,
+      "end": 62,
+      "frames": 64,
+      "pattern": "/film/c06/f{i}.webp",
+      "patternSm": "/film/c06/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }
