@@ -21,6 +21,17 @@
       "blend": "normal",
       "opacity": 1,
       "fade": 0.8
+    },
+    {
+      "id": "c03",
+      "start": 26,
+      "end": 31,
+      "frames": 64,
+      "pattern": "/film/c03/f{i}.webp",
+      "patternSm": "/film/c03/sm/f{i}.webp",
+      "blend": "normal",
+      "opacity": 1,
+      "fade": 0.8
     }
   ]
 }
